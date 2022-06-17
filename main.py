@@ -1,3 +1,4 @@
+print(0)
 from tqdm import tqdm
 import network
 import utils
@@ -5,6 +6,7 @@ import os
 import random
 import argparse
 import numpy as np
+print(1)
 
 from torch.utils import data
 from datasets import VOCSegmentation, Cityscapes
@@ -214,6 +216,8 @@ def main():
         opts.num_classes = 21
     elif opts.dataset.lower() == 'cityscapes':
         opts.num_classes = 19
+    elif opts.dataset.lower() == 'custom':
+        opts.num_classes = 2
 
     # Setup visualization
     vis = Visualizer(port=opts.vis_port,
@@ -324,7 +328,12 @@ def main():
         # =====  Train  =====
         model.train()
         cur_epochs += 1
+        print(3)
+        print(train_loader)
+        # for images in train_loader:
+        #     print(images)
         for (images, labels) in train_loader:
+            print(images, labels)
             cur_itrs += 1
 
             images = images.to(device, dtype=torch.float32)
